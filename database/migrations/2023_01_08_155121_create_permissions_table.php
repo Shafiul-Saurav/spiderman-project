@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('module_name');
-            $table->string('module_slug');
+            $table->foreignId('module_id')->constrained('modules')->onDelete('cascade');
+            $table->string('permission_name');
+            $table->string('permission_slug');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('permissions');
     }
 };

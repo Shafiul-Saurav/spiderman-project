@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('module_name');
-            $table->string('module_slug');
+            $table->string('role_name');
+            $table->string('role_slug');
+            $table->text('role_note')->nullable()->comment('describes the role');
+            $table->boolean('is_deletable')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('roles');
     }
 };
