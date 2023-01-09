@@ -11,4 +11,18 @@ class Role extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+
+    //Relationship with User
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    //Relationship with Permission
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
 }
