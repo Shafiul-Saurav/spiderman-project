@@ -16,6 +16,10 @@
 
     @stack('admin_script')
 
+    <!-- Toastr -->
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+
     <!-- Page JS -->
     {{-- <script src="{{ asset('admin') }}/assets/js/dashboards-analytics.js"></script> --}}
 
