@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\ModuleController;
+use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\Trash\ModuleTrashController;
+use App\Http\Controllers\Backend\Trash\PermissionTrashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +42,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::delete('module/{module_slug}/forcedelete', [ModuleTrashController::class, 'forceDelete'])
     ->name('module.forcedelete');
     Route::resource('module', ModuleController::class);
+
+    //Permission Route
+    Route::get('permission/trash', [PermissionTrashController::class, 'trash'])
+    ->name('permission.trash');
+    Route::get('permission/{permission_slug}/restore', [PermissionTrashController::class, 'restore'])
+    ->name('permission.restore');
+    Route::delete('permission/{permission_slug}/forcedelete', [PermissionTrashController::class, 'forceDelete'])
+    ->name('permission.forcedelete');
+    Route::resource('permission', PermissionController::class);
 });

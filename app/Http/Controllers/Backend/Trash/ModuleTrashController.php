@@ -32,7 +32,7 @@ class ModuleTrashController extends Controller
         $module = Module::onlyTrashed()->where('module_slug', $module_slug)->first();
         $module->forceDelete();
 
-        Toastr::info('Module deleted permanently!');
+        Toastr::info('Module deleted Permanently!');
         return redirect()->back();
     }
 }
