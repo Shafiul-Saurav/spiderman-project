@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\Trash\ModuleTrashController;
 use App\Http\Controllers\Backend\Trash\PermissionTrashController;
+use App\Http\Controllers\Backend\Trash\RoleTrashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +53,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::delete('permission/{permission_slug}/forcedelete', [PermissionTrashController::class, 'forceDelete'])
     ->name('permission.forcedelete');
     Route::resource('permission', PermissionController::class);
+
+    //Role Route
+    Route::get('role/trash', [RoleTrashController::class, 'trash'])
+    ->name('role.trash');
+    Route::get('role/{role_slug}/restore', [RoleTrashController::class, 'restore'])
+    ->name('role.restore');
+    Route::delete('role/{role_slug}/forcedelete', [RoleTrashController::class, 'forceDelete'])
+    ->name('role.forcedelete');
+    Route::resource('role', RoleController::class);
 });
