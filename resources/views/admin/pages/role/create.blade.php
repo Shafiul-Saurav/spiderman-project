@@ -54,7 +54,14 @@
                             </div>
                         </div>
                         <div class="my-3">
-                            <strong>Manage Permission for role</strong>
+                            <strong class="@error('permissions') is-invalid
+
+                            @enderror">Manage Permission for role</strong>
+                            @error('permissions')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                         <div class="mb-3">
                             <div class="form-check">

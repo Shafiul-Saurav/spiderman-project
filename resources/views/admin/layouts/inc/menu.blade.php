@@ -67,60 +67,79 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">System Settings</span>
         </li>
+        @can('index-module')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Module Settings</div>
             </a>
             <ul class="menu-sub">
+                @can('index-module')
                 <li class="menu-item">
                     <a href="{{ route('module.index') }}" class="menu-link">
                         <div data-i18n="Account">List</div>
                     </a>
                 </li>
+                @endcan
+                @can('create-module')
                 <li class="menu-item">
                     <a href="{{ route('module.create') }}" class="menu-link">
                         <div data-i18n="Notifications">Create</div>
                     </a>
                 </li>
+                @endcan
             </ul>
         </li>
+        @endcan
+
+        @can('index-permission')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                 <div data-i18n="Account Settings">Permission Settings</div>
             </a>
             <ul class="menu-sub">
+                @can('index-permission')
                 <li class="menu-item">
                     <a href="{{ route('permission.index') }}" class="menu-link">
                         <div data-i18n="Account">List</div>
                     </a>
                 </li>
+                @endcan
+                @can('create-permission')
                 <li class="menu-item">
                     <a href="{{ route('permission.create') }}" class="menu-link">
                         <div data-i18n="Notifications">Create</div>
                     </a>
                 </li>
+                @endcan
             </ul>
         </li>
+        @endcan
+
+        @can('index-role')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bxs-user-account'></i>
                 <div data-i18n="Account Settings">Role Settings</div>
             </a>
             <ul class="menu-sub">
+                @can('index-role')
                 <li class="menu-item">
                     <a href="{{ route('role.index') }}" class="menu-link">
                         <div data-i18n="Account">List</div>
                     </a>
                 </li>
+                @endcan
+                @can('create-role')
                 <li class="menu-item">
                     <a href="{{ route('role.create') }}" class="menu-link">
                         <div data-i18n="Notifications">Create</div>
                     </a>
                 </li>
+                @endcan
             </ul>
         </li>
-
+        @endcan
     </ul>
 </aside>

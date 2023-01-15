@@ -13,8 +13,12 @@
                 <div class="d-flex justify-content-between align-items-center py-3">
                     <h5 class="card-header px-0 text-primary">Role Index / List Page</h5>
                     <div>
+                        @can('create-role')
                         <a href="{{ route('role.trash') }}" class="btn btn-outline-primary"><i class='bx bx-trash mb-1'></i> View Trash</a>
+                        @endcan
+                        @can('create-role')
                         <a href="{{ route('role.create') }}" class="btn btn-primary"><i class='bx bx-plus-circle mb-1'></i> Add New</a>
+                        @endcan
                     </div>
 
                 </div>
@@ -55,15 +59,19 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
+                                                @can('edit-role')
                                                 <a class="dropdown-item"
-                                                    href="{{ route('role.edit', $role->role_slug) }}"><i
-                                                        class="bx bx-edit-alt me-1"></i>
-                                                    Edit</a>
+                                                href="{{ route('role.edit', $role->role_slug) }}"><i
+                                                    class="bx bx-edit-alt me-1"></i>
+                                                Edit</a>
+                                                @endcan
+                                                @if ($role->is_deletable && Auth::user()->hasPermission('delete-role'))
                                                 <form action="{{ route('role.destroy', $role->role_slug) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item show_confirm"><i class="bx bx-trash me-1"></i> Delete</a></button>
                                                 </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>

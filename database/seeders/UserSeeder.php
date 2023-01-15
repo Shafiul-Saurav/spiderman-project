@@ -6,8 +6,9 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // DB::table('users')->truncate();
         //Create Admin
         $adminRoleId = Role::where('role_slug', 'admin')->first()->id;
         User::updateOrCreate([
@@ -29,10 +31,29 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        //Create User
-        $userRoleId = Role::where('role_slug', 'user')->first()->id;
+        //Create Manager
+        $ManagerRoleId = Role::where('role_slug', 'manager')->first()->id;
         User::updateOrCreate([
-            'role_id' => $userRoleId,
+            'role_id' => $ManagerRoleId,
+            'name' => 'Maisha',
+            'email' => 'maisha@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('1234@maisha'),//1234@maisha
+            'remember_token' => Str::random(10),
+        ]);
+
+        //Create Editor
+        $editorRoleId = Role::where('role_slug', 'editor')->first()->id;
+        User::updateOrCreate([
+            'role_id' => $editorRoleId,
+            'name' => 'Saurav',
+            'email' => 'saurav@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('1234@saurav'),//1234@saurav
+            'remember_token' => Str::random(10),
+        ]);
+        User::updateOrCreate([
+            'role_id' => $editorRoleId,
             'name' => 'User',
             'email' => 'user@gmail.com',
             'email_verified_at' => now(),
