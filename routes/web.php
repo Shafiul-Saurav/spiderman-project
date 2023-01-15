@@ -9,6 +9,8 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\Trash\ModuleTrashController;
 use App\Http\Controllers\Backend\Trash\PermissionTrashController;
 use App\Http\Controllers\Backend\Trash\RoleTrashController;
+use App\Http\Controllers\Backend\Trash\UserTrashController;
+use App\Http\Controllers\Backend\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,4 +64,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::delete('role/{role_slug}/forcedelete', [RoleTrashController::class, 'forceDelete'])
     ->name('role.forcedelete');
     Route::resource('role', RoleController::class);
+
+    //User Route
+    Route::get('users/trash', [UserTrashController::class, 'trash'])
+    ->name('users.trash');
+    Route::get('users/{id}/restore', [UserTrashController::class, 'restore'])
+    ->name('users.restore');
+    Route::delete('users/{id}/forcedelete', [UserTrashController::class, 'forceDelete'])
+    ->name('users.forcedelete');
+    Route::resource('users', UserController::class);
 });

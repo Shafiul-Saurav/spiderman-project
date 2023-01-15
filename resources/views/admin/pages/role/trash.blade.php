@@ -53,7 +53,7 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
                                                     href="{{ route('role.restore', ['role_slug' => $role->role_slug]) }}"><i
-                                                        class="bx bx-edit-alt me-1"></i>
+                                                    class='bx bxs-direction-left me-1'></i>
                                                     Restore</a>
                                                 <form action="{{ route('role.forcedelete', ['role_slug' => $role->role_slug]) }}" method="POST">
                                                     @csrf
