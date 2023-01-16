@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $users = User::latest('id')
         ->with(['role:id,role_name,role_slug'])
-        ->select(['id', 'role_id', 'name', 'email', 'updated_at'])->paginate(20);
+        ->select(['id', 'role_id', 'name', 'email', 'is_active', 'updated_at'])->paginate(20);
 
         return view('admin.pages.user.index', compact('users'));
     }
@@ -118,5 +118,22 @@ class UserController extends Controller
 
         Toastr::success('User Deleted Successfully 🙂');
         return redirect()->route('users.index');
+    }
+
+    public function checkActive($user_id)
+    {
+        $user = User::find($user_id);
+        //toggle the is-active
+        if($user->is_active == 1){
+            $user->is_active = 0;
+        }else{
+            $user->is_active = 1;
+        }
+
+        $user->update();
+        return response()->json([
+            'type' => 'success',
+            'message' => 'Status Update'
+        ]);
     }
 }
