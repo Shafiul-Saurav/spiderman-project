@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -20,6 +21,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('index-user');
+
         $users = User::latest('id')
         ->with(['role:id,role_name,role_slug'])
         ->select(['id', 'role_id', 'name', 'email', 'is_active', 'updated_at'])->paginate(20);
@@ -34,6 +38,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('create-user');
+
         $roles = Role::where('is_deletable', 1)->select(['id', 'role_name'])->get();
         return view('admin.pages.user.create', compact('roles'));
     }
@@ -46,6 +53,9 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('create-user');
+
         // dd($request->all());
         User::updateOrCreate([
             'role_id' => $request->role_id,
@@ -78,6 +88,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('edit-user');
+
         $roles = Role::where('is_deletable', 1)->select(['id', 'role_name'])->get();
         $user = User::where('id', $id)->first();
         return view('admin.pages.user.edit', compact('roles', 'user'));
@@ -92,6 +105,9 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('edit-user');
+
         // dd($request->all(), $id);
         $user = User::where('id', $id)->first();
         $user->update([
@@ -113,6 +129,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('delete-user');
+
         $user = User::where('id', $id)->first();
         $user->delete();
 

@@ -100,7 +100,6 @@
                 var item_id = $(this).data('id');
 
                 // console.log(is_active, item_id); for debug purpose
-
                 $.ajax({
                     type: "GET",
                     dataType: "json",

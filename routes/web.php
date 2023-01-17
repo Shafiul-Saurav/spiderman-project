@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\Trash\ModuleTrashController;
 use App\Http\Controllers\Backend\Trash\PermissionTrashController;
@@ -28,7 +29,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('get-districts/{division_id}', [ProfileController::class, 'getDistrict']);
+Route::get('get-upazilas/{district_id}', [ProfileController::class, 'getUpazila']);
 /*
 |--------------------------------------------------------------------------
 | Backend Routes
@@ -76,4 +78,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('check/user/is_active/{user_id}', [UserController::class, 'checkActive'])
     ->name('user.is_active.ajax');
     Route::resource('users', UserController::class);
+
+    //Profile Route
+    Route::resource('profile', ProfileController::class);
 });
