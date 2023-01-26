@@ -46,7 +46,7 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-fullemail" class="input-group-text"><i
                                                     class='bx bx-envelope'></i></span>
-                                            <input type="text" name="Email"
+                                            <input type="text" name="email"
                                                 class="form-control
                                     @error('Email')
                                         is-invalid
@@ -170,7 +170,7 @@
                                         <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-fullemail" class="input-group-text"><i
                                                     class='bx bx-envelope'></i></span>
-                                            <input type="text" name="Email"
+                                            <input type="text" name="email"
                                                 class="form-control
                                     @error('Email')
                                         is-invalid

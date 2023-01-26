@@ -80,5 +80,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::resource('users', UserController::class);
 
     //Profile Route
+    Route::get('update/password', [ProfileController::class, 'getUpdatePassword'])
+    ->name('getupdate.password');
+    Route::post('update/password', [ProfileController::class, 'updatePassword'])
+    ->name('postupdate.password');
     Route::resource('profile', ProfileController::class);
 });

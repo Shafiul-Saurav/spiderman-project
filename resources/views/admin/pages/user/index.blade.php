@@ -30,6 +30,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Last Updated</th>
+                                <th>Profile</th>
                                 <th>Role Name</th>
                                 <th>User Name</th>
                                 <th>User Email</th>
@@ -44,6 +45,16 @@
                                         <strong>{{ $users->firstItem() + $loop->index }}</strong>
                                     </td>
                                     <td>{{ $user->updated_at->format('d-M-Y') }}</td>
+                                    <td>
+                                        @if ($user->profile)
+                                            <img src="{{ asset('uploads/users') }}/{{ $user->profile->user_image }}" alt
+                                                    class="w-px-40 h-auto rounded-circle" />
+                                        @else
+                                            <img src="{{ asset('uploads/users/default_user.jpg') }}" alt
+                                                    class="w-px-40 h-auto rounded-circle" />
+                                        @endif
+
+                                    </td>
                                     <td>{{ $user->role->role_name }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
@@ -67,6 +78,7 @@
                                                         Edit</a>
                                                 @endcan
                                                 @can('delete-user')
+                                                    @if ($user->email != 'shafi@gmail.com')
                                                     <form
                                                         action="{{ route('users.destroy', $user->id) }}"
                                                         method="POST">
@@ -75,6 +87,8 @@
                                                         <button type="submit" class="dropdown-item show_confirm"><i
                                                                 class="bx bx-trash me-1"></i> Delete</a></button>
                                                     </form>
+                                                    @endif
+
                                                 @endcan
 
                                             </div>

@@ -23,7 +23,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_image',
     ];
 
     /**
@@ -57,5 +56,10 @@ class User extends Authenticatable
     {
         return $this->role->permissions()->where('permission_slug', $permission_slug)
         ->first() ? true : false;
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 }

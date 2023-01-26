@@ -24,7 +24,7 @@ class PermissionController extends Controller
         Gate::authorize('index-permission');
 
         $permissions = Permission::with(['module:id,module_name,module_slug'])->latest('id')
-        ->select(['id', 'module_id','permission_name', 'permission_slug', 'updated_at'])->paginate(20);
+        ->select(['id', 'module_id','permission_name', 'permission_slug', 'updated_at'])->paginate(50);
 
         return view('admin.pages.permission.index', compact('permissions'));
     }

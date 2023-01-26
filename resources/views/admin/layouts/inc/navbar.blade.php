@@ -21,20 +21,37 @@
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                        <img src="{{ asset('admin') }}/assets/img/avatars/1.png" alt
-                            class="w-px-40 h-auto rounded-circle" />
-                    </div>
+                    @php
+                        $profile = \App\Models\Profile::where('user_id', Auth::id())->first();
+                    @endphp
+                    @if ($profile)
+                        <div class="avatar avatar-online">
+                            <img src="{{ asset('uploads/users') }}/{{ $profile->user_image }}" alt
+                                class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                    @else
+                        <div class="avatar avatar-online">
+                            <img src="{{ asset('uploads/users/default_user.jpg') }}" alt
+                                class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                    @endif
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <a class="dropdown-item" href="{{ route('profile.index') }}">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
-                                        <img src="{{ asset('admin') }}/assets/img/avatars/1.png" alt
-                                            class="w-px-40 h-auto rounded-circle" />
-                                    </div>
+                                    @if ($profile)
+                                        <div class="avatar avatar-online">
+                                            <img src="{{ asset('uploads/users') }}/{{ $profile->user_image }}" alt
+                                                class="w-px-40 h-auto rounded-circle" />
+                                        </div>
+                                    @else
+                                        <div class="avatar avatar-online">
+                                            <img src="{{ asset('uploads/users/default_user.jpg') }}" alt
+                                                class="w-px-40 h-auto rounded-circle" />
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
@@ -53,7 +70,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('getupdate.password') }}">
                             <i class="bx bxs-lock-alt me-2"></i>
                             <span class="align-middle">Change Password</span>
                         </a>

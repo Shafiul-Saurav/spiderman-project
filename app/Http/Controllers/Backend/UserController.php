@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
@@ -25,9 +26,10 @@ class UserController extends Controller
         Gate::authorize('index-user');
 
         $users = User::latest('id')
-        ->with(['role:id,role_name,role_slug'])
+        ->with(['role:id,role_name,role_slug', 'profile'])
         ->select(['id', 'role_id', 'name', 'email', 'is_active', 'updated_at'])->paginate(20);
 
+        // return $users;
         return view('admin.pages.user.index', compact('users'));
     }
 
@@ -133,10 +135,16 @@ class UserController extends Controller
         Gate::authorize('delete-user');
 
         $user = User::where('id', $id)->first();
-        $user->delete();
 
-        Toastr::success('User Deleted Successfully 🙂');
-        return redirect()->route('users.index');
+        if ($user->email != 'shafi@gmail.com'){
+            $user->delete();
+
+            Toastr::success('User Deleted Successfully 🙂');
+            return redirect()->route('users.index');
+        }else {
+            Toastr::error("Admin Cannot be Deleted 😡!!");
+            return redirect()->route('users.index');
+        }
     }
 
     public function checkActive($user_id)

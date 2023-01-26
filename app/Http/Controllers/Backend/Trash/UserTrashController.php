@@ -12,7 +12,7 @@ class UserTrashController extends Controller
     public function trash()
     {
         $users = User::onlyTrashed()->latest('id')
-        ->with(['role:id,role_name,role_slug'])
+        ->with(['role:id,role_name,role_slug', 'profile'])
         ->select(['id', 'role_id', 'name', 'email', 'updated_at'])->paginate(20);
 
         return view('admin.pages.user.trash', compact('users'));
@@ -29,10 +29,14 @@ class UserTrashController extends Controller
 
     public function forceDelete($id)
     {
-        $user = User::onlyTrashed()->where('id', $id)->first();
+        $user = User::onlyTrashed()->with('profile')->where('id', $id)->first();
+        if($user->profile->user_image != 'default_user.jpg'){
+            $photo_location = 'uploads/users/'.$user->profile->user_image;
+            unlink($photo_location);
+        }
         $user->forceDelete();
 
-        Toastr::info('User Deleted Permanently 🙂');
+        Toastr::info('User Has Been Deleted Permanently 🙂');
         return redirect()->back();
     }
 

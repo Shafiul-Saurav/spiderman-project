@@ -10,8 +10,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ProfilePasswordChangeRequest;
 
 class ProfileController extends Controller
 {
@@ -22,6 +25,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('profile-update');
         $divisions = Division::select(['id', 'name'])->get();
         // dd($divisions);
         $profile = Profile::where('user_id', Auth::id())->first();
@@ -46,13 +51,16 @@ class ProfileController extends Controller
      */
     public function store(ProfileUpdateRequest $request)
     {
-        dd($request->all());
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('profile-update');
+        // dd($request->all());
         $profile = $request->all();
         $profile['user_id'] = Auth::id();
 
         $existing_profile = Profile::where('user_id', Auth::id())->first();
         if ($existing_profile) {
             $existing_profile->update($profile);
+
         } else {
             $profile = Profile::create([
             'user_id' => Auth::id(),
@@ -66,7 +74,6 @@ class ProfileController extends Controller
         ]);
         $this->image_upload($request, $profile->id);
         }
-
         Toastr::success('Profile Updated Successfully!');
         return redirect()->back();
     }
@@ -116,6 +123,41 @@ class ProfileController extends Controller
         //
     }
 
+    public function getUpdatePassword()
+    {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('password-update');
+        return view('admin.pages.profile.update_password');
+    }
+
+    public function updatePassword(ProfilePasswordChangeRequest $request)
+    {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('password-update');
+        // dd($request->all());
+        $user = Auth::user();
+        $hashedPassword = $user->password;
+        //existing password === request password
+        if (Hash::check($request->old_password, $hashedPassword)) {
+            //new password == old stored password
+            if(!Hash::check($request->password, $hashedPassword)) {
+                $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+
+            Auth::logout();
+            Toastr::success("Password Updated Successfully 🙂");
+                return redirect()->route('login');
+            } else {
+                Toastr::error('New Password cannot be the same as old pasword');
+                return redirect()->back();
+            }
+        } else {
+            Toastr::error("Credentials doesn't match");
+                return redirect()->back();
+        }
+    }
+
     /**
      * Store/Update the Image file.
      *
@@ -137,24 +179,13 @@ class ProfileController extends Controller
             $uploaded_photo = $request->file('user_image');
             $new_photo_name = $profile->id . '.' . $uploaded_photo->getClientOriginalExtension();
             $new_photo_location = $photo_location . $new_photo_name;
-            Image::make($uploaded_photo)->resize(200,200)->save(base_path($new_photo_location), 40);
+            Image::make($uploaded_photo)->resize(500,500)->save(base_path($new_photo_location), 40);
             //$user = User::find($profile->id);
             $check = $profile->update([
                 'user_image' => $new_photo_name,
             ]);
         }
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Example = 1,
-    | $example = 9,
-    | example_image = 6,
-    | default_example = 1,
-    | public/uploads/examples/ = 2
-    | * Here example(19) may be category, subcategory, products or anything else
-    |--------------------------------------------------------------------------
-    */
 
     public function getDistrict($division_id)
     {
