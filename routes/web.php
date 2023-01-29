@@ -3,15 +3,17 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Backend\ModuleController;
-use App\Http\Controllers\Backend\PermissionController;
-use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\Trash\ModuleTrashController;
-use App\Http\Controllers\Backend\Trash\PermissionTrashController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\ModuleController;
+use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\Trash\PageTrashController;
 use App\Http\Controllers\Backend\Trash\RoleTrashController;
 use App\Http\Controllers\Backend\Trash\UserTrashController;
-use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\Trash\ModuleTrashController;
+use App\Http\Controllers\Backend\Trash\PermissionTrashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+//Axios Call
 Route::get('get-districts/{division_id}', [ProfileController::class, 'getDistrict']);
 Route::get('get-upazilas/{district_id}', [ProfileController::class, 'getUpazila']);
 /*
@@ -74,7 +77,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     ->name('users.restore');
     Route::delete('users/{id}/forcedelete', [UserTrashController::class, 'forceDelete'])
     ->name('users.forcedelete');
-    //Ajax Call
+    //Ajax Call Active
     Route::get('check/user/is_active/{user_id}', [UserController::class, 'checkActive'])
     ->name('user.is_active.ajax');
     Route::resource('users', UserController::class);
@@ -85,4 +88,16 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::post('update/password', [ProfileController::class, 'updatePassword'])
     ->name('postupdate.password');
     Route::resource('profile', ProfileController::class);
+
+    //Page Route
+    //Ajax Call Active
+    Route::get('page/trash', [PageTrashController::class, 'trash'])
+    ->name('page.trash');
+    Route::get('page/{page_slug}/restore', [PageTrashController::class, 'restore'])
+    ->name('page.restore');
+    Route::delete('page/{page_slug}/forcedelete', [PageTrashController::class, 'forceDelete'])
+    ->name('page.forcedelete');
+    Route::get('check/page/is_active/{page_id}', [PageController::class, 'checkActive'])
+    ->name('page.is_active.ajax');
+    Route::resource('page', PageController::class);
 });
