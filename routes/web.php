@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BackupController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Backend\Trash\RoleTrashController;
 use App\Http\Controllers\Backend\Trash\UserTrashController;
 use App\Http\Controllers\Backend\Trash\ModuleTrashController;
 use App\Http\Controllers\Backend\Trash\PermissionTrashController;
+use App\Http\Controllers\Frontend\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,8 @@ use App\Http\Controllers\Backend\Trash\PermissionTrashController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('page/{page_slug}', [FrontendController::class, 'index']);
 
 Auth::routes();
 //Axios Call
@@ -100,4 +104,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('check/page/is_active/{page_id}', [PageController::class, 'checkActive'])
     ->name('page.is_active.ajax');
     Route::resource('page', PageController::class);
+
+    //Backup Route
+    Route::resource('backup', BackupController::class)->only(['index', 'store', 'destroy']);
 });
