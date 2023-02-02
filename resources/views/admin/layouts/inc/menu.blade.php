@@ -189,5 +189,22 @@
             </ul>
         </li>
         @endcan
+        @can('index-backup')
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bxs-data'></i>
+                <div data-i18n="Account Settings">Backup Management</div>
+            </a>
+            <ul class="menu-sub">
+                @can('index-backup')
+                <li class="menu-item">
+                    <a href="{{ route('backup.index') }}" class="menu-link">
+                        <div data-i18n="Account">List</div>
+                    </a>
+                </li>
+                @endcan
+            </ul>
+        </li>
+        @endcan
     </ul>
 </aside>

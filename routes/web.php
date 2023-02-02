@@ -106,5 +106,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::resource('page', PageController::class);
 
     //Backup Route
+    Route::get('/backup/download/{file_name}', [BackupController::class, 'download'])
+    ->name('backup.download');
     Route::resource('backup', BackupController::class)->only(['index', 'store', 'destroy']);
 });
