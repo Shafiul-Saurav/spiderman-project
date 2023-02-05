@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\Trash\PageTrashController;
 use App\Http\Controllers\Backend\Trash\RoleTrashController;
 use App\Http\Controllers\Backend\Trash\UserTrashController;
@@ -109,4 +110,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('/backup/download/{file_name}', [BackupController::class, 'download'])
     ->name('backup.download');
     Route::resource('backup', BackupController::class)->only(['index', 'store', 'destroy']);
+
+    //System Setting Management Routes
+    Route::group(['as' => 'settings.', 'prefix' => 'settings'], function() {
+        //General Setting Route
+        Route::get('general', [SettingController::class, 'general'])->name('general');
+        Route::post('general', [SettingController::class, 'generalUpdate'])->name('general.update');
+
+        //Apperance Setting Route
+        Route::get('apperance', [SettingController::class, 'apperance'])->name('apperance');
+        Route::post('apperance', [SettingController::class, 'apperanceUpdate'])->name('apperance.update');
+    });
 });
