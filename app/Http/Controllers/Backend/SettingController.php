@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApperanceSettingUpdateRequest;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\GeneralSettingUpdateRequest;
 
@@ -55,4 +56,15 @@ class SettingController extends Controller
         Toastr::success('Setting Update Successfully!');
         return back();
     }
+
+    public function apperance()
+    {
+        return view('admin.pages.settings.apperance');
+    }
+
+    public function apperanceUpdate(ApperanceSettingUpdateRequest $request)
+    {
+        dd($request->all());
+    }
+
 }

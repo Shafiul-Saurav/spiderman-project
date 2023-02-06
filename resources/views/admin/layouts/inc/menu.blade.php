@@ -221,7 +221,17 @@
                 </li>
                 {{-- @endcan --}}
             </ul>
+            <ul class="menu-sub">
+                {{-- @can('index-backup') --}}
+                <li class="menu-item">
+                    <a href="{{ route('settings.apperance') }}" class="menu-link">
+                        <div data-i18n="Account">Apperance Setting</div>
+                    </a>
+                </li>
+                {{-- @endcan --}}
+            </ul>
         </li>
         {{-- @endcan --}}
+
     </ul>
 </aside>
