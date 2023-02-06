@@ -36,7 +36,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="logo_image" class="form-label">Upload Logo </label>
-                            <input type="file" name="logo_image" class="form-control dropify" data-default-file="">
+                            <input type="file" name="logo_image" class="form-control dropify"
+                            data-default-file="{{ setting('logo_image') != null ? Storage::url(setting('logo_image')) : ''}}">
                             @error('logo_image')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -45,7 +46,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="favicon_image" class="form-label">Upload Favicon (SIZE:33 x 33) </label>
-                            <input type="file" name="favicon_image" class="form-control dropify" data-default-file="">
+                            <input type="file" name="favicon_image" class="form-control dropify"
+                            data-default-file="{{ setting('favicon_image') != null ? Storage::url(setting('favicon_image')) : ''}}">
                             @error('favicon_image')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
