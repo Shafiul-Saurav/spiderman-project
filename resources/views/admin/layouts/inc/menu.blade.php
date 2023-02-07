@@ -64,9 +64,9 @@
             </a>
         </li>
 
-        <li class="menu-header small text-uppercase">
+        {{-- <li class="menu-header small text-uppercase">
             <span class="menu-header-text">System Settings</span>
-        </li>
+        </li> --}}
         @can('index-module')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -226,6 +226,15 @@
                 <li class="menu-item">
                     <a href="{{ route('settings.apperance') }}" class="menu-link">
                         <div data-i18n="Account">Apperance Setting</div>
+                    </a>
+                </li>
+                {{-- @endcan --}}
+            </ul>
+            <ul class="menu-sub">
+                {{-- @can('index-backup') --}}
+                <li class="menu-item">
+                    <a href="{{ route('settings.mail') }}" class="menu-link">
+                        <div data-i18n="Account">mail Setting</div>
                     </a>
                 </li>
                 {{-- @endcan --}}
