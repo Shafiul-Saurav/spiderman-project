@@ -54,8 +54,9 @@
                                 </span>
                             @enderror
                         </div>
-
+                        @can('appearance-setting-update')
                         <button type="submit" class="btn btn-primary">Send</button>
+                        @endcan
                     </form>
                 </div>
             </div>

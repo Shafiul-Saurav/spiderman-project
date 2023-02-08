@@ -64,6 +64,20 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="d-flex flex-row justify-content-center mt-4">
+                            <div>
+                                <a href="{{ route('login.provider', ['provider' => 'github']) }}" class="btn btn-primary me-1">
+                                    <i class='bx bxl-github'></i> Login With GitHub
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{{ route('login.provider', ['provider' => 'google']) }}" class="btn btn-danger ms-1">
+                                    <i class='bx bxl-google-plus'></i> Login With Google
+                                </a>
+                            </div>
+
+                        </div>
                     </form>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Backend\BackupController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,15 @@ Route::get('/', function () {
 Route::get('page/{page_slug}', [FrontendController::class, 'index']);
 
 Auth::routes();
+
+//Socialite Login Routes
+Route::group(['as' => 'login.', 'prefix' => 'login'], function() {
+    Route::get('/{provider}', [LoginController::class, 'redirectToProvider'])->name('provider');
+    Route::get('/{provider}/callback', [LoginController::class, 'handleProviderCallback'])
+    ->name('provider.callback');
+});
+
+
 //Axios Call
 Route::get('get-districts/{division_id}', [ProfileController::class, 'getDistrict']);
 Route::get('get-upazilas/{district_id}', [ProfileController::class, 'getUpazila']);

@@ -5,22 +5,26 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApperanceSettingUpdateRequest;
 use Brian2694\Toastr\Facades\Toastr;
-use App\Http\Requests\GeneralSettingUpdateRequest;
-use App\Http\Requests\MailSettingUpdateRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\MailSettingUpdateRequest;
+use App\Http\Requests\GeneralSettingUpdateRequest;
+use App\Http\Requests\ApperanceSettingUpdateRequest;
 
 class SettingController extends Controller
 {
-
     public function general()
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('general-setting-view');
         return view('admin.pages.settings.general');
     }
 
     public function generalUpdate(GeneralSettingUpdateRequest $request)
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('general-setting-update');
         // dd($request->all());
         Setting::updateOrCreate(
             ['name' => 'site_title'],
@@ -61,11 +65,15 @@ class SettingController extends Controller
 
     public function apperance()
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('appearance-setting-view');
         return view('admin.pages.settings.apperance');
     }
 
     public function apperanceUpdate(ApperanceSettingUpdateRequest $request)
     {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('appearance-setting-update');
         Setting::updateOrCreate(
             ['name' => 'bg_color'],
             ['value' => $request->bg_color],
@@ -99,10 +107,14 @@ class SettingController extends Controller
     }
 
     public function mailView() {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('mail-setting-view');
         return view('admin.pages.settings.mail');
     }
 
     public function mailUpdate(MailSettingUpdateRequest $request) {
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('mail-setting-update');
         Setting::updateOrCreate(
             ['name' => 'mail_mailer'],
             ['value' => $request->mail_mailer],

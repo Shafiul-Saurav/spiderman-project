@@ -206,41 +206,41 @@
             </ul>
         </li>
         @endcan
-        {{-- @can('index-backup') --}}
+        @can('general-setting-view')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-cog'></i>
                 <div data-i18n="Account Settings">System Setting Management</div>
             </a>
             <ul class="menu-sub">
-                {{-- @can('index-backup') --}}
+                @can('general-setting-view')
                 <li class="menu-item">
                     <a href="{{ route('settings.general') }}" class="menu-link">
                         <div data-i18n="Account">General Setting</div>
                     </a>
                 </li>
-                {{-- @endcan --}}
+                @endcan
             </ul>
             <ul class="menu-sub">
-                {{-- @can('index-backup') --}}
+                @can('appearance-setting-view')
                 <li class="menu-item">
                     <a href="{{ route('settings.apperance') }}" class="menu-link">
                         <div data-i18n="Account">Apperance Setting</div>
                     </a>
                 </li>
-                {{-- @endcan --}}
+                @endcan
             </ul>
             <ul class="menu-sub">
-                {{-- @can('index-backup') --}}
+                @can('mail-setting-view')
                 <li class="menu-item">
                     <a href="{{ route('settings.mail') }}" class="menu-link">
                         <div data-i18n="Account">mail Setting</div>
                     </a>
                 </li>
-                {{-- @endcan --}}
+                @endcan
             </ul>
         </li>
-        {{-- @endcan --}}
+        @endcan
 
     </ul>
 </aside>
