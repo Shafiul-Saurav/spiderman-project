@@ -212,29 +212,38 @@
                 <i class='menu-icon tf-icons bx bx-cog'></i>
                 <div data-i18n="Account Settings">System Setting Management</div>
             </a>
-            <ul class="menu-sub">
+            <ul class="menu-sub py-0">
                 @can('general-setting-view')
                 <li class="menu-item">
-                    <a href="{{ route('settings.general') }}" class="menu-link">
+                    <a href="{{ route('settings.general') }}" class="menu-link py-1">
                         <div data-i18n="Account">General Setting</div>
                     </a>
                 </li>
                 @endcan
             </ul>
-            <ul class="menu-sub">
+            <ul class="menu-sub py-0">
                 @can('appearance-setting-view')
                 <li class="menu-item">
-                    <a href="{{ route('settings.apperance') }}" class="menu-link">
+                    <a href="{{ route('settings.apperance') }}" class="menu-link py-1">
                         <div data-i18n="Account">Apperance Setting</div>
                     </a>
                 </li>
                 @endcan
             </ul>
-            <ul class="menu-sub">
+            <ul class="menu-sub py-0">
                 @can('mail-setting-view')
                 <li class="menu-item">
-                    <a href="{{ route('settings.mail') }}" class="menu-link">
-                        <div data-i18n="Account">mail Setting</div>
+                    <a href="{{ route('settings.mail') }}" class="menu-link py-1">
+                        <div data-i18n="Account">Mail Setting</div>
+                    </a>
+                </li>
+                @endcan
+            </ul>
+            <ul class="menu-sub py-0">
+                @can('socialite-setting-view')
+                <li class="menu-item">
+                    <a href="{{ route('settings.socialite') }}" class="menu-link py-1">
+                        <div data-i18n="Account">Socialite Setting</div>
                     </a>
                 </li>
                 @endcan
