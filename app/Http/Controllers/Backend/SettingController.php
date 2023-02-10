@@ -194,7 +194,7 @@ class SettingController extends Controller
             ['value' => $request->google_client_redirect_url],
         );
 
-        // update ENV file
+        // Update ENV File
         $this->setEnvValue('GITHUB_CLIENT_ID', $request->git_client_id);
         $this->setEnvValue('GITHUB_CLIENT_SECRET', $request->git_client_secret);
         $this->setEnvValue('GITHUB_CLIENT_REDIRECT', $request->git_client_redirect_url);

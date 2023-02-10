@@ -107,9 +107,28 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfileUpdateRequest $request, $id)
     {
-        //
+        //authorize this user to access/give access to admin dashboard
+        Gate::authorize('profile-update');
+        // dd($request->all());
+        $profile = Profile::where('id', $id)->first();
+        // return $profile;
+        $profile['user_id'] = Auth::id();
+            $profile->update([
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'email' => $request->email,
+            'division_id' => $request->division_id,
+            'district_id' => $request->district_id,
+            'upazila_id' => $request->upazila_id,
+            'address' => $request->address,
+            'gender' => $request->gender,
+        ]);
+
+        $this->image_upload($request, $profile->id);
+        Toastr::success('Profile Updated Successfully!');
+        return redirect()->back();
     }
 
     /**

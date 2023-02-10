@@ -17,8 +17,9 @@
                 </div>
                 @if ($profile)
                     <div class="card-body">
-                        <form action="{{ route('profile.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('profile.update', $profile->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
@@ -65,11 +66,11 @@
                                         <label for="user_image" class="form-label">Profile Image <span class="text-danger">*</span></label>
                                 <input type="file" name="user_image" class="form-control dropify"
                                 data-default-file="{{ asset('uploads/users') }}/{{ $profile->user_image }}">
-                                {{-- @error('user_image')
+                                @error('user_image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror --}}
+                                @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">
