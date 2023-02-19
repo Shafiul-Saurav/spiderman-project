@@ -58,7 +58,7 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @can('edit-user')
+                                                @can('delete-user')
                                                     <a class="dropdown-item"
                                                         href="{{ route('users.restore', ['id' => $user->id]) }}"><i
                                                             class='bx bxs-direction-left me-1'></i>

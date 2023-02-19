@@ -13,14 +13,13 @@
                 <div class="d-flex justify-content-between align-items-center py-3">
                     <h5 class="card-header px-0 text-primary">User Index / List Page</h5>
                     <div>
-                        @can('create-user')
-                            <a href="{{ route('users.trash') }}" class="btn btn-outline-primary"><i
-                                    class='bx bx-trash mb-1'></i>
+                        @can('delete-user')
+                            <a href="{{ route('users.trash') }}" class="btn btn-outline-primary"><i class='bx bx-trash mb-1'></i>
                                 View Trash</a>
                         @endcan
                         @can('create-user')
-                            <a href="{{ route('users.create') }}" class="btn btn-primary"><i
-                                    class='bx bx-plus-circle mb-1'></i> Add New</a>
+                            <a href="{{ route('users.create') }}" class="btn btn-primary"><i class='bx bx-plus-circle mb-1'></i>
+                                Add New</a>
                         @endcan
                     </div>
                 </div>
@@ -48,10 +47,10 @@
                                     <td>
                                         @if ($user->profile)
                                             <img src="{{ asset('uploads/users') }}/{{ $user->profile->user_image }}" alt
-                                                    class="w-px-40 h-auto rounded-circle" />
+                                                class="w-px-40 h-auto rounded-circle" />
                                         @else
                                             <img src="{{ asset('uploads/users/default_user.jpg') }}" alt
-                                                    class="w-px-40 h-auto rounded-circle" />
+                                                class="w-px-40 h-auto rounded-circle" />
                                         @endif
 
                                     </td>
@@ -59,10 +58,19 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input toggle-class" type="checkbox" id="{{ $user->id }}"
-                                            {{ $user->is_active ? 'checked' : ''}} data-id="{{ $user->id }}">
-                                        </div>
+                                        @can('edit-user')
+                                            @if ($user->email != 'shafi@gmail.com')
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input toggle-class" type="checkbox"
+                                                        id="{{ $user->id }}" {{ $user->is_active ? 'checked' : '' }}
+                                                        data-id="{{ $user->id }}">
+                                                </div>
+                                            @else
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input toggle-class" type="checkbox" checked>
+                                                </div>
+                                            @endif
+                                        @endcan
                                     </td>
                                     <td>
                                         <div class="dropdown">
@@ -72,23 +80,20 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 @can('edit-user')
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('users.edit', $user->id) }}"><i
-                                                            class="bx bx-edit-alt me-1"></i>
-                                                        Edit</a>
+                                                    @if ($user->email != 'shafi@gmail.com')
+                                                        <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}"><i
+                                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                    @endif
                                                 @endcan
                                                 @can('delete-user')
                                                     @if ($user->email != 'shafi@gmail.com')
-                                                    <form
-                                                        action="{{ route('users.destroy', $user->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="dropdown-item show_confirm"><i
-                                                                class="bx bx-trash me-1"></i> Delete</a></button>
-                                                    </form>
+                                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item show_confirm"><i
+                                                                    class="bx bx-trash me-1"></i> Delete</a></button>
+                                                        </form>
                                                     @endif
-
                                                 @endcan
 
                                             </div>
@@ -110,15 +115,15 @@
     <script>
         $(document).ready(function() {
             $('.toggle-class').change(function() {
-                var is_active = $(this).prop('checked') == true ? 1 : 0 ;
+                var is_active = $(this).prop('checked') == true ? 1 : 0;
                 var item_id = $(this).data('id');
 
                 // console.log(is_active, item_id); for debug purpose
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url: '/admin/check/user/is_active/'+item_id,
-                    success: function(response){
+                    url: '/admin/check/user/is_active/' + item_id,
+                    success: function(response) {
                         console.log(response);
                         Swal.fire({
                             title: `${ response.message}`,
@@ -126,8 +131,8 @@
                             icon: `${response.type}`,
                         })
                     },
-                    error: function(err){
-                        if(err){
+                    error: function(err) {
+                        if (err) {
                             console.log(err);
                         }
                     }

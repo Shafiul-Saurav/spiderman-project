@@ -51,15 +51,19 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
+                                                @can('delete-role')
                                                 <a class="dropdown-item"
                                                     href="{{ route('role.restore', ['role_slug' => $role->role_slug]) }}"><i
                                                     class='bx bxs-direction-left me-1'></i>
                                                     Restore</a>
+                                                @endcan
+                                                @can('delete-role')
                                                 <form action="{{ route('role.forcedelete', ['role_slug' => $role->role_slug]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item show_confirm"><i class="bx bx-trash me-1"></i> Force Delete</a></button>
                                                 </form>
+                                                @endcan
                                             </div>
                                         </div>
                                     </td>

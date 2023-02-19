@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'name' => 'Maisha',
             'email' => 'maisha@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('1234@maisha'),//1234@maisha
+            'password' => Hash::make('1234@Maisha'),//1234@Maisha
             'remember_token' => Str::random(10),
         ]);
 

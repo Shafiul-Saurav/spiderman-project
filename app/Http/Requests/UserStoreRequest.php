@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserStoreRequest extends FormRequest
@@ -27,7 +28,8 @@ class UserStoreRequest extends FormRequest
             'role_id' => 'required|numeric',
             'name' => 'required|string|max:255|',
             'email' => 'required|string|email|unique:users|max:255',
-            'password' => 'required|string|min:8'
+            'password' => ['bail', 'required', 'string', Password::min(4)->mixedCase()],
+            // 'password' => 'required|string|min:8'
         ];
     }
 }

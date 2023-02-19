@@ -41,13 +41,23 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('module.restore', ['module_slug' => $module->module_slug]) }}"><i class='bx bxs-direction-left me-1'></i> Restore</a>
-                                                <form action="{{ route('module.forcedelete', ['module_slug' => $module->module_slug]) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item show_confirm"><i class="bx bx-trash me-1"></i> Force Delete</a></button>
-                                                </form>
+                                                @can('delete-module')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('module.restore', ['module_slug' => $module->module_slug]) }}"><i
+                                                            class='bx bxs-direction-left me-1'></i> Restore</a>
+                                                @endcan
+                                                @can('delete-module')
+                                                    <form
+                                                        action="{{ route('module.forcedelete', ['module_slug' => $module->module_slug]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item show_confirm"><i
+                                                                class="bx bx-trash me-1"></i> Force Delete</a></button>
+                                                    </form>
+                                                @endcan
+
+
                                             </div>
                                         </div>
                                     </td>

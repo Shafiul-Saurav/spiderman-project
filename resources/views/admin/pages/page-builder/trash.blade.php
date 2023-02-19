@@ -51,12 +51,12 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @can('edit-page')
+                                                @can('delete-page')
                                                 <a class="dropdown-item"
                                                 href="{{ route('page.restore', ['page_slug' => $page->page_slug]) }}"><i class='bx bxs-direction-left me-1'></i>
                                                 Restore </a>
                                                 @endcan
-                                                @can('delete-role')
+                                                @can('delete-page')
                                                 <form action="{{ route('page.forcedelete', ['page_slug' => $page->page_slug]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')

@@ -13,7 +13,7 @@
                 <div class="d-flex justify-content-between align-items-center py-3">
                     <h5 class="card-header px-0 text-primary">Role Index / List Page</h5>
                     <div>
-                        @can('create-role')
+                        @can('delete-role')
                         <a href="{{ route('role.trash') }}" class="btn btn-outline-primary"><i class='bx bx-trash mb-1'></i> View Trash</a>
                         @endcan
                         @can('create-role')

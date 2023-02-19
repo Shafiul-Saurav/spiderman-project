@@ -12,7 +12,8 @@
             <div class="card p-4">
                 <div class="d-flex justify-content-between align-items-center py-3">
                     <h5 class="card-header px-0 text-primary">Permission Index / List Page</h5>
-                    <a href="{{ route('permission.index') }}" class="btn btn-info"><i class='bx bx-chevrons-left'></i> Index</a>
+                    <a href="{{ route('permission.index') }}" class="btn btn-info"><i class='bx bx-chevrons-left'></i>
+                        Index</a>
                 </div>
                 <div class="table-responsive text-nowrap">
                     <table id="dataTable" class="table table-hover">
@@ -43,16 +44,23 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('permission.restore', ['permission_slug' => $permission->permission_slug]) }}"><i class='bx bxs-direction-left me-1'></i> Restore</a>
-                                                <form
-                                                    action="{{ route('permission.forcedelete', ['permission_slug' => $permission->permission_slug]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item show_confirm"><i
-                                                            class="bx bx-trash me-1"></i> Force Delete</a></button>
-                                                </form>
+                                                @can('delete-permission')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('permission.restore', ['permission_slug' => $permission->permission_slug]) }}"><i
+                                                            class='bx bxs-direction-left me-1'></i> Restore</a>
+                                                @endcan
+                                                @can('delete-permission')
+                                                    <form
+                                                        action="{{ route('permission.forcedelete', ['permission_slug' => $permission->permission_slug]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item show_confirm"><i
+                                                                class="bx bx-trash me-1"></i> Force Delete</a></button>
+                                                    </form>
+                                                @endcan
+
+
                                             </div>
                                         </div>
                                     </td>

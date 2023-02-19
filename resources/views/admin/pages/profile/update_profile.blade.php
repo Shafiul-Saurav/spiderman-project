@@ -121,19 +121,19 @@
                                     <label for="" class="form-label me-4">Select Gender <span
                                             class="text-danger">*</span></label>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1"
-                                            value="male">
-                                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="male"
+                                            value="male" {{ $profile->gender == 'male' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="male">Male</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2"
-                                            value="female">
-                                        <label class="form-check-label" for="inlineRadio2">Female</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="female"
+                                            value="female" {{ $profile->gender == 'female' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="female">Female</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio3"
-                                            value="other">
-                                        <label class="form-check-label" for="inlineRadio3">Other</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="other"
+                                            value="other" {{ $profile->gender == 'other' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="other">Other</label>
                                     </div>
                                 </div>
                             </div>
@@ -246,19 +246,19 @@
                                     <label for="" class="form-label me-4">Select Gender <span
                                             class="text-danger">*</span></label>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1"
-                                            value="male">
-                                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="male"
+                                            value="male" {{ $profile->gender == 'male' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="male">Male</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2"
-                                            value="female">
-                                        <label class="form-check-label" for="inlineRadio2">Female</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="female"
+                                            value="female" {{ $profile->gender == 'female' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="female">Female</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio3"
-                                            value="other">
-                                        <label class="form-check-label" for="inlineRadio3">Other</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="other"
+                                            value="other" {{ $profile->gender == 'other' ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="other">Other</label>
                                     </div>
                                 </div>
                             </div>

@@ -13,7 +13,7 @@
                 <div class="d-flex justify-content-between align-items-center py-3">
                     <h5 class="card-header px-0 text-primary">Permission Index / List Page</h5>
                     <div>
-                        @can('create-permission')
+                        @can('delete-permission')
                             <a href="{{ route('permission.trash') }}" class="btn btn-outline-primary"><i
                                     class='bx bx-trash mb-1'></i>
                                 View Trash</a>

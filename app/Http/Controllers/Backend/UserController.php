@@ -61,7 +61,7 @@ class UserController extends Controller
         // dd($request->all());
         User::updateOrCreate([
             'role_id' => $request->role_id,
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -95,7 +95,13 @@ class UserController extends Controller
 
         $roles = Role::where('is_deletable', 1)->select(['id', 'role_name'])->get();
         $user = User::where('id', $id)->first();
-        return view('admin.pages.user.edit', compact('roles', 'user'));
+
+        if ($user->email != 'shafi@gmail.com'){
+            return view('admin.pages.user.edit', compact('roles', 'user'));
+        } else {
+            Toastr::error("You Have No Permission To Perform This Action 😞!!");
+            return redirect()->back();
+        }
     }
 
     /**
@@ -114,7 +120,7 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
         $user->update([
             'role_id' => $request->role_id,
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
